@@ -28,6 +28,11 @@
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.4);
+
+  /* New Vibrant Tokens */
+  --color-vibrant-violet: #A855F7;
+  --color-vibrant-cyan: #06B6D4;
+  --color-vibrant-pink: #EC4899;
 }
 
 :root {
@@ -53,8 +58,7 @@
   --radius: 0.75rem;
 }
 
-/* Explicitly target the .dark class on the html element */
-:root.dark, .dark {
+.dark {
   --background: 247 95% 4%;
   --foreground: 0 0% 98%;
   --card: 247 95% 4%;
@@ -98,18 +102,24 @@
     @apply bg-white/60 dark:bg-[#0a0a16]/60 backdrop-blur-lg border border-black/5 dark:border-white/5 shadow-xl dark:shadow-2xl;
   }
 
-  .text-violet-glow {
-    @apply text-primary drop-shadow-[0_0_15px_rgba(168,85,247,0.3)];
+  /* Vibrant Glowing Text */
+  .text-vibrant-glow {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-vibrant-violet via-primary to-vibrant-cyan drop-shadow-[0_0_15px_rgba(168,85,247,0.5)];
   }
 
-  .glow-violet {
-    @apply shadow-[0_0_30px_rgba(168,85,247,0.2)];
+  .glow-primary {
+    @apply shadow-[0_0_30px_rgba(168,85,247,0.3)];
+  }
+
+  .glow-cyan {
+    @apply shadow-[0_0_30px_rgba(6,182,212,0.3)];
   }
 
   .portal-glow {
      @apply absolute bottom-0 left-1/2 -translate-x-1/2 w-[1200px] h-[500px] rounded-[100%] bg-primary/20 blur-[120px] -z-10 mix-blend-multiply dark:mix-blend-screen opacity-50 dark:opacity-100;
   }
 
+  /* Musical Background Elements */
   .bg-grid {
     background-image:
       linear-gradient(to right, rgba(139,92,246,0.05) 1px, transparent 1px),
@@ -117,9 +127,18 @@
     background-size: 80px 80px;
   }
 
-  .bg-noise {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 256px 256px;
+  .animate-orb {
+    animation: orb-float 20s infinite linear;
+  }
+
+  @keyframes orb-float {
+    0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+    50% { transform: translate(-45%, -55%) rotate(180deg) scale(1.1); }
+    100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
+  }
+
+  .musical-particle {
+    @apply absolute w-1 h-1 rounded-full bg-white opacity-50 blur-[1px];
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
   }
 }

@@ -16,34 +16,41 @@ export default function Navbar() {
     <motion.nav
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-2xl px-4"
+      className="fixed top-10 left-1/2 -translate-x-1/2 z-50 w-full max-w-4xl px-4"
     >
-      <div className="glass h-14 rounded-full flex items-center justify-between px-6 border-black/10 dark:border-white/10 shadow-xl dark:shadow-2xl">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-black text-xs">BM</span>
+      <div className="glass h-16 rounded-full flex items-center justify-between px-10 border-white/10 shadow-2xl relative overflow-hidden">
+        {/* Subtle Animated border glow */}
+        <div className="absolute inset-0 bg-gradient-to-r from-vibrant-violet/20 via-transparent to-vibrant-cyan/20 opacity-50" />
+        
+        <div className="flex items-center gap-4 relative z-10">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-vibrant-violet to-primary flex items-center justify-center shadow-lg transform -rotate-6">
+            <span className="text-primary-foreground font-black text-sm italic">BM</span>
           </div>
-          <span className="font-bold tracking-tight text-foreground hidden sm:block">BandManager</span>
+          <span className="font-bold tracking-tighter text-foreground hidden lg:block text-xl">BandManager</span>
         </div>
 
-        <div className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
+        <div className="flex items-center gap-10 relative z-10">
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="text-sm font-bold text-muted-foreground hover:text-foreground transition-all hover:scale-105"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
 
-        <div className="flex items-center gap-3">
-          <ThemeToggle />
-          <button className="text-sm font-bold text-foreground hidden sm:block">Log In</button>
-          <button className="px-5 py-2 bg-foreground text-background text-xs font-bold rounded-full hover:opacity-90 transition-opacity">
-            Start Free
-          </button>
+          <div className="flex items-center gap-6 border-l border-white/10 pl-6 h-8">
+            <ThemeToggle />
+            <div className="hidden sm:flex items-center gap-6">
+              <button className="text-sm font-bold text-foreground hover:text-primary transition-colors">Log In</button>
+              <button className="px-6 py-2.5 bg-foreground text-background text-xs font-black rounded-full hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all">
+                Join Now
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </motion.nav>
