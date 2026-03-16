@@ -35,7 +35,7 @@ export default function DashboardPage() {
       >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-4xl font-display font-bold">Welcome, {user?.name.split(' ')[0]}! 🤘</h1>
+            <h1 className="text-4xl font-display font-bold">Welcome, {(typeof user?.name === 'string' ? user.name : '').split(' ')[0] || 'Musician'}! 🤘</h1>
             <p className="text-muted-foreground mt-2">Ready to rock? Here's what's happening with your bands.</p>
           </div>
           <button className="px-6 py-3 bg-primary text-white font-bold rounded-xl glow-primary hover:bg-primary/90 transition-all flex items-center gap-2">

@@ -1,3 +1,6 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { ThemeToggle } from "./ThemeToggle"
@@ -12,6 +15,28 @@ const navLinks = [
 
 export default function Navbar() {
   const { signedIn, user, signOut } = useAuth();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="fixed top-10 left-1/2 -translate-x-1/2 z-50 w-full max-w-4xl px-4">
+        <div className="glass h-16 rounded-full border-white/10 shadow-2xl flex items-center justify-between px-10">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl bg-primary/20" />
+            <div className="w-32 h-6 bg-white/5 rounded-md" />
+          </div>
+          <div className="flex items-center gap-6">
+            <div className="w-8 h-8 rounded-full bg-white/5" />
+            <div className="w-24 h-8 bg-white/5 rounded-full" />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <motion.nav
@@ -63,7 +88,7 @@ export default function Navbar() {
                     <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center border border-primary/20">
                       <User size={14} className="text-primary" />
                     </div>
-                    <span className="max-w-[80px] truncate">{user?.name.split(' ')[0]}</span>
+                    <span className="max-w-[80px] truncate">{(typeof user?.name === 'string' ? user.name : '').split(' ')[0] || 'User'}</span>
                   </div>
                   <button 
                     onClick={signOut}
