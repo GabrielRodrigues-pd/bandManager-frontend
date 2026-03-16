@@ -4,10 +4,26 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { connectSocket, disconnectSocket } from "@/lib/socket";
 
+interface Band {
+  id: string;
+  name: string;
+  _count?: {
+    members: number;
+    songs: number;
+  };
+}
+
+interface Member {
+  id: string;
+  role: string;
+  band: Band;
+}
+
 interface User {
   id: string;
   name: string;
   email: string;
+  members?: Member[];
 }
 
 interface AuthContextType {
