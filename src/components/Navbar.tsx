@@ -1,17 +1,18 @@
-"use client"
-
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { ThemeToggle } from "./ThemeToggle"
+import { useAuth } from "./AuthProvider"
+import { LayoutDashboard, LogOut, User } from "lucide-react"
 
 const navLinks = [
-  { name: "Product", href: "#" },
-  { name: "Features", href: "#" },
-  { name: "Pricing", href: "#" },
-  { name: "About", href: "#" },
+  { name: "Product", href: "/" },
+  { name: "Features", href: "/#features" },
+  { name: "Pricing", href: "/#pricing" },
 ]
 
 export default function Navbar() {
+  const { signedIn, user, signOut } = useAuth();
+
   return (
     <motion.nav
       initial={{ y: -20, opacity: 0 }}
@@ -23,10 +24,12 @@ export default function Navbar() {
         <div className="absolute inset-0 bg-gradient-to-r from-vibrant-violet/20 via-transparent to-vibrant-cyan/20 opacity-50" />
         
         <div className="flex items-center gap-4 relative z-10">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-vibrant-violet to-primary flex items-center justify-center shadow-lg transform -rotate-6">
-            <span className="text-primary-foreground font-black text-sm italic">BM</span>
-          </div>
-          <span className="font-bold tracking-tighter text-foreground hidden lg:block text-xl">BandManager</span>
+          <Link href="/" className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-vibrant-violet to-primary flex items-center justify-center shadow-lg transform -rotate-6">
+              <span className="text-primary-foreground font-black text-sm italic">BM</span>
+            </div>
+            <span className="font-bold tracking-tighter text-foreground hidden lg:block text-xl">BandManager</span>
+          </Link>
         </div>
 
         <div className="flex items-center gap-10 relative z-10">
@@ -40,15 +43,44 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
+            {signedIn && (
+              <Link
+                href="/dashboard"
+                className="text-sm font-bold text-primary hover:text-primary/80 transition-all flex items-center gap-2"
+              >
+                <LayoutDashboard size={16} />
+                Dashboard
+              </Link>
+            )}
           </div>
 
           <div className="flex items-center gap-6 border-l border-white/10 pl-6 h-8">
             <ThemeToggle />
             <div className="hidden sm:flex items-center gap-6">
-              <button className="text-sm font-bold text-foreground hover:text-primary transition-colors">Log In</button>
-              <button className="px-6 py-2.5 bg-foreground text-background text-xs font-black rounded-full hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all">
-                Join Now
-              </button>
+              {signedIn ? (
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-2 text-sm font-bold text-foreground">
+                    <div className="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center border border-primary/20">
+                      <User size={14} className="text-primary" />
+                    </div>
+                    <span className="max-w-[80px] truncate">{user?.name.split(' ')[0]}</span>
+                  </div>
+                  <button 
+                    onClick={signOut}
+                    className="p-2 text-muted-foreground hover:text-destructive transition-colors"
+                    title="Sign Out"
+                  >
+                    <LogOut size={18} />
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <Link href="/login" className="text-sm font-bold text-foreground hover:text-primary transition-colors">Log In</Link>
+                  <Link href="/register" className="px-6 py-2.5 bg-foreground text-background text-xs font-black rounded-full hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all">
+                    Join Now
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
