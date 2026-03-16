@@ -76,14 +76,28 @@ function DashboardContent() {
           </div>
           
           <div className="flex items-center gap-4">
-            <button className="px-6 py-3.5 bg-white/5 border border-white/10 rounded-2xl font-bold hover:bg-white/10 transition-all flex items-center gap-2">
-              <Settings size={18} />
-              Band Settings
-            </button>
-            <button className="px-8 py-3.5 bg-primary text-white font-black rounded-2xl glow-primary hover:bg-primary/90 transition-all flex items-center gap-2 shadow-xl">
-              <Plus size={20} />
-              New Setlist
-            </button>
+            <Link 
+              href={`/songs/new?band=${bandId}`}
+              className="px-6 py-3.5 bg-white/5 border border-white/10 rounded-2xl font-bold hover:bg-white/10 transition-all flex items-center gap-2"
+            >
+              <Music size={18} />
+              Add Song
+            </Link>
+            <div className="flex flex-col gap-2">
+                <Link 
+                    href={`/setlists/new?band=${activeBand.id}`}
+                    className="w-full py-3 bg-primary text-white font-black rounded-xl shadow-lg hover:scale-[1.02] transition-all flex items-center justify-center gap-2 group/btn2"
+                >
+                    <Plus size={18} />
+                    New Setlist
+                </Link>
+                <Link 
+                    href={`/setlists?band=${activeBand.id}`}
+                    className="text-center text-xs font-bold text-muted-foreground hover:text-white transition-colors py-2"
+                >
+                    View Full Schedule
+                </Link>
+            </div>
           </div>
         </div>
 
@@ -117,10 +131,13 @@ function DashboardContent() {
                 <h3 className="text-xl font-bold mb-1">Song Library</h3>
                 <p className="text-muted-foreground text-sm">Your artistic repertoire</p>
             </div>
-            <button className="text-sm font-bold text-vibrant-cyan hover:underline text-left mt-2 flex items-center gap-1 group/btn">
+            <Link 
+              href={`/songs?band=${activeBand.id}`}
+              className="text-sm font-bold text-vibrant-cyan hover:underline text-left mt-2 flex items-center gap-1 group/btn"
+            >
                 Open Repertoire
                 <ArrowRight size={14} className="group-hover/btn:translate-x-0.5 transition-transform" />
-            </button>
+            </Link>
           </div>
 
           <div className="glass-card p-8 rounded-[2rem] border-white/5 flex flex-col gap-6 group hover:border-vibrant-pink/20 transition-all">
