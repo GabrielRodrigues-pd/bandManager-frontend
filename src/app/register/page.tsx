@@ -40,7 +40,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-160px)] flex items-center justify-center p-6 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center p-6 pt-32 pb-12 relative overflow-hidden">
       {/* Background Glow */}
       <div className="portal-glow" />
       

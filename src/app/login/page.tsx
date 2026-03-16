@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -14,7 +14,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  
+
   const router = useRouter();
   const { signIn } = useAuth();
 
@@ -30,30 +30,32 @@ export default function LoginPage() {
       });
 
       const { token } = response.data;
-      
-      // In a real app, we'd also get the user info here. 
+
+      // In a real app, we'd also get the user info here.
       // For now, let's fetch the profile after login or decode the token.
       const profileResponse = await api.get("/me", {
-          headers: {
-              Authorization: `Bearer ${token}`
-          }
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       signIn(token, profileResponse.data.user);
       router.push("/");
     } catch (err: any) {
-      setError(err.response?.data?.message || "Invalid credentials. Please try again.");
+      setError(
+        err.response?.data?.message || "Invalid credentials. Please try again.",
+      );
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="min-h-[calc(100vh-160px)] flex items-center justify-center p-6 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center p-6 pt-32 pb-12 relative overflow-hidden">
       {/* Background Glow */}
       <div className="portal-glow" />
-      
-      <motion.div 
+
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md glass-card p-8 rounded-2xl relative z-10"
@@ -62,7 +64,9 @@ export default function LoginPage() {
           <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center mb-4 glow-primary">
             <Music className="text-primary w-6 h-6" />
           </div>
-          <h1 className="text-3xl font-display font-bold text-center">Welcome Back</h1>
+          <h1 className="text-3xl font-display font-bold text-center">
+            Welcome Back
+          </h1>
           <p className="text-muted-foreground text-center mt-2">
             The band is waiting for you.
           </p>
@@ -113,7 +117,10 @@ export default function LoginPage() {
           </div>
 
           <div className="flex items-center justify-end">
-            <Link href="/" className="text-xs text-primary hover:text-primary-foreground transition-colors font-medium">
+            <Link
+              href="/"
+              className="text-xs text-primary hover:text-primary-foreground transition-colors font-medium"
+            >
               Forgot password?
             </Link>
           </div>
@@ -137,7 +144,10 @@ export default function LoginPage() {
         <div className="mt-8 text-center">
           <p className="text-sm text-muted-foreground">
             Don&apos;t have an account?{" "}
-            <Link href="/register" className="text-primary font-bold hover:underline">
+            <Link
+              href="/register"
+              className="text-primary font-bold hover:underline"
+            >
               Join the Crew
             </Link>
           </p>
